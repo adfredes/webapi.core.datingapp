@@ -442,3 +442,8 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 appsettings.json
+
+
+## Angular Ignore
+node_modules
+dist
