@@ -15,6 +15,10 @@
                 </li>
             </ng-container>
 
+            <li class="nav-item" [routerLinkActive]="'active'">
+                <a class="nav-link" [routerLink]="['/errors']" href="#">Errors</a>
+            </li>
+
         </ul>
 
         <div class="dropdown" *ngIf="(accountService.currentuser$ | async) as user" dropdown>

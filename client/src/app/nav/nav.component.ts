@@ -25,9 +25,6 @@ export class NavComponent implements OnInit {
       .subscribe(res => {
         this.model = {};
         this.router.navigate(['/members']);
-      }, error => {
-        this.toastr.error(error.error);
-        console.log(error);
       });
 
   }
