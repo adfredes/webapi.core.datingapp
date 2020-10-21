@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { AccountService } from '../../services/account.service';
 import { User } from '../../models/user';
 import { take } from 'rxjs/operators';
-import { JsonPipe } from '@angular/common';
 import { MembersService } from '../../services/members.service';
 import { Photo } from '../../models/photo';
 
@@ -70,8 +69,13 @@ export class PhotoEditorComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, header) => {
       if (response){
-        const photo = JSON.parse(response);
+        const photo: Photo = JSON.parse(response);
         this.member.photos.push(photo);
+        if (photo.isMain){
+          this.user.photoUrl = photo.url;
+          this.accountService.setCurrentUser(this.user);
+          this.member.photoUrl = photo.url;
+        }
       }
     };
   }
