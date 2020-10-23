@@ -8,6 +8,7 @@ import { PaginatedResult } from '../models/pagination';
 import { User } from '../models/user';
 import { UserParams } from '../models/userParams';
 import { AccountService } from './account.service';
+import { LikesParams } from '../models/likesParams';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +98,22 @@ export class MembersService {
   deletePhoto(photoId: number){
     return this.http.delete(`${this.baseUrl}users/delete-photo/${photoId}`);
   }
+
+  addLike(username: string){
+    return this.http.post(`${this.baseUrl}likes/${username}`, {});
+  }
+
+  getLikes(likesParams: LikesParams){
+
+    return this.getPaginatedResult<Partial<Member[]>, LikesParams>(this.baseUrl + 'likes', likesParams)
+                // .pipe(
+                //   tap(resp => this.memberCache.set(Object.values(likesParams).join('-'), resp))
+                // )
+    ;
+
+    // return this.http.get<Partial<Member[]>>(`${this.baseUrl}likes?predicate=${predicate}`, {});
+  }
+
 
   private getHttpParams<R>(tParams: R): HttpParams{
     let params = new HttpParams();
