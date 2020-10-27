@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Member } from '../models/member';
 import { MembersService } from '../services/members.service';
 import { LikesParams } from '../models/likesParams';
+import { Pagination } from '../models/pagination';
 
 @Component({
   selector: 'app-lists',

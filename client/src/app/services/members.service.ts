@@ -9,6 +9,7 @@ import { User } from '../models/user';
 import { UserParams } from '../models/userParams';
 import { AccountService } from './account.service';
 import { LikesParams } from '../models/likesParams';
+import { getPaginatedResult } from './paginationHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -47,24 +48,11 @@ export class MembersService {
     if (response){
       return of(response);
     }
-    // let params = this.getPaginationHeaders(userParams);
-    // params = params.append('minAge', userParams.minAge.toString());
-    // params = params.append('maxAge', userParams.maxAge.toString());
-    // params = params.append('gender', userParams.gender);
-    // const params = this.getHttpParams<UserParams>(userParams);
-    return this.getPaginatedResult<Member[], UserParams>(this.baseUrl + 'users', userParams)
+    return getPaginatedResult<Member[], UserParams>(this.baseUrl + 'users', userParams, this.http)
                 .pipe(
                   tap(resp => this.memberCache.set(Object.values(userParams).join('-'), resp))
                 )
     ;
-  }
-
-  private getPaginationHeaders({pageNumber, pageSize}){
-    let params = new HttpParams();
-    params = params.append('pageNumber', pageNumber.toString());
-    params = params.append('pageSize', pageSize.toString());
-
-    return params;
   }
 
   getMember(username: string) {
@@ -105,35 +93,12 @@ export class MembersService {
 
   getLikes(likesParams: LikesParams){
 
-    return this.getPaginatedResult<Partial<Member[]>, LikesParams>(this.baseUrl + 'likes', likesParams)
+    return getPaginatedResult<Partial<Member[]>, LikesParams>(this.baseUrl + 'likes', likesParams, this.http);
                 // .pipe(
                 //   tap(resp => this.memberCache.set(Object.values(likesParams).join('-'), resp))
                 // )
-    ;
 
     // return this.http.get<Partial<Member[]>>(`${this.baseUrl}likes?predicate=${predicate}`, {});
-  }
-
-
-  private getHttpParams<R>(tParams: R): HttpParams{
-    let params = new HttpParams();
-    for (const prop of Object.keys(tParams)) {
-      params = params.append(prop, tParams[prop].toString());
-    }
-    return params;
-  }
-
-  private getPaginatedResult<T, R>(url, rParam) {
-    const params = this.getHttpParams<R>(rParam);
-    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T> ();
-    return this.http.get<T>(url, { observe: 'response', params })
-      .pipe(
-        map(response => {
-          paginatedResult.result = response.body;
-          paginatedResult.pagination = response.headers.get('Pagination') ? JSON.parse(response.headers.get('Pagination')) : null;
-          return paginatedResult;
-        })
-      );
   }
 
 }

@@ -1,4 +1,3 @@
-import { basename } from 'path';
 import { PaginationParams } from './paginationParams';
 import { User } from './user';
 export class UserParams extends PaginationParams{
