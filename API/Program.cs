@@ -27,6 +27,8 @@ namespace API
                 var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();
                 await Seed.SeedUser(userManager, roleManager);
+                context.Database.ExecuteSqlRaw("delete FROM Groups;");
+                context.Database.ExecuteSqlRaw("delete FROM Connections;");
             }
             catch(Exception ex){
                 var logger = services.GetRequiredService<ILogger<Program>>();
