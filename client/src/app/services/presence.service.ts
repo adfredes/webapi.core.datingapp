@@ -45,7 +45,6 @@ export class PresenceService {
     this.hubConnection.on('GetOnlineUsers', (usernames: string[]) => this.onlineUserSource.next(usernames));
 
     this.hubConnection.on('NewMessageReceived', ({username, knownAs}) => {
-      console.log(username);
       this.toastr.info((knownAs || username) + ' has sent yoy a new message!')
         .onTap
         .pipe(take(1))

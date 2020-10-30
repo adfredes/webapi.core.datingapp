@@ -43,8 +43,6 @@ export class MessageService {
     });
 
     this.hubConnection.on('UpdatedGroup', (group: Group) => {
-      console.log('Update Group', group.name);
-      console.table(group.conections);
       if (group.conections.some(c => c.username === otherUsername)){
         this.messageThread$
         .pipe(take(1))
