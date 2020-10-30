@@ -69,8 +69,10 @@ namespace API
             app.UseCors(policy => policy.AllowAnyHeader()
                                         .AllowAnyMethod()
                                         .AllowCredentials()
-                                        .AllowAnyOrigin()
-                                        );
+                                        .WithOrigins("http://datingsocial.herokuapp.com",
+                                        "https://datingsocial.herokuapp.com",
+                                        "https://localhost:4200"));                                        
+
 
             app.UseAuthentication();
 
