@@ -11,7 +11,8 @@ namespace API.Data
     {        
         public static async Task SeedUser(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager){            
             if ( await userManager.Users.AnyAsync()) return;            
-            var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedDAta.json");            
+            var userData = await System.IO.File.ReadAllTextAsync("UserSeedDAta.json");            
+            //var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedDAta.json");            
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);            
 
             var roles = new List<AppRole>{

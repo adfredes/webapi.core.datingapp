@@ -47,8 +47,7 @@ namespace API.Extensions
                 else
                 {
                     // Use connection string provided at runtime by Heroku.
-                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-                    //connUrl = "postgres://kvxnprjcevwyht:cc5441e7c5bc66972fe1bd6291f2d693ef3dc453e578c85ad4597ea3186f0762@ec2-3-216-92-193.compute-1.amazonaws.com:5432/d1jsestqkit0dq";
+                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");                    
                     // Parse connection URL to connection string for Npgsql
                     connUrl = connUrl.Replace("postgres://", string.Empty);
                     var pgUserPass = connUrl.Split("@")[0];
@@ -58,12 +57,7 @@ namespace API.Extensions
                     var pgUser = pgUserPass.Split(":")[0];
                     var pgPass = pgUserPass.Split(":")[1];
                     var pgHost = pgHostPort.Split(":")[0];
-                    var pgPort = pgHostPort.Split(":")[1];
-                    // var pgDb = "d1jsestqkit0dq";
-                    // var pgUser = "kvxnprjcevwyht";
-                    // var pgPass = "cc5441e7c5bc66972fe1bd6291f2d693ef3dc453e578c85ad4597ea3186f0762";
-                    // var pgHost = "ec2-3-216-92-193.compute-1.amazonaws.com";
-                    // var pgPort = "5432";
+                    var pgPort = pgHostPort.Split(":")[1];                    
 
                     connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
                 }
