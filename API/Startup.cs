@@ -69,7 +69,8 @@ namespace API
             app.UseCors(policy => policy.AllowAnyHeader()
                                         .AllowAnyMethod()
                                         .AllowCredentials()
-                                        .WithOrigins("*"));
+                                        .AllowAnyOrigin()
+                                        );
 
             app.UseAuthentication();
 
