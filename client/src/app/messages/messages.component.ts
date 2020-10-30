@@ -3,6 +3,7 @@ import { Message } from '../models/message';
 import { Pagination } from '../models/pagination';
 import { MessageService } from '../services/message.service';
 import { MessageParams } from '../models/messageParams';
+import { ConfirmService } from '../services/confirm.service';
 
 @Component({
   selector: 'app-messages',
@@ -15,7 +16,7 @@ export class MessagesComponent implements OnInit {
   messageParams = new MessageParams();
   loading = false;
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private confirmService: ConfirmService) { }
 
   ngOnInit(): void {
     this.loadMessages();
@@ -33,7 +34,12 @@ export class MessagesComponent implements OnInit {
 
   deleteButtonHandle(event, id: number){
     event.stopPropagation();
-    this.deleteMessage(id);
+    this.confirmService.confirm('Confirm delete message', 'This cannot be undone')
+      .subscribe(confirm => {
+        if (confirm) {
+          this.deleteMessage(id);
+        }
+      });
   }
 
   deleteMessage(id: number) {
