@@ -54,16 +54,16 @@ namespace API.Extensions
                     var pgUserPass = connUrl.Split("@")[0];
                     var pgHostPortDb = connUrl.Split("@")[1];
                     var pgHostPort = pgHostPortDb.Split("/")[0];
-                    // var pgDb = pgHostPortDb.Split("/")[1];
-                    // var pgUser = pgUserPass.Split(":")[0];
-                    // var pgPass = pgUserPass.Split(":")[1];
-                    // var pgHost = pgHostPort.Split(":")[0];
-                    // var pgPort = pgHostPort.Split(":")[1];
-                    var pgDb = "d1jsestqkit0dq";
-                    var pgUser = "kvxnprjcevwyht";
-                    var pgPass = "cc5441e7c5bc66972fe1bd6291f2d693ef3dc453e578c85ad4597ea3186f0762";
-                    var pgHost = "ec2-3-216-92-193.compute-1.amazonaws.com";
-                    var pgPort = "5432";
+                    var pgDb = pgHostPortDb.Split("/")[1];
+                    var pgUser = pgUserPass.Split(":")[0];
+                    var pgPass = pgUserPass.Split(":")[1];
+                    var pgHost = pgHostPort.Split(":")[0];
+                    var pgPort = pgHostPort.Split(":")[1];
+                    // var pgDb = "d1jsestqkit0dq";
+                    // var pgUser = "kvxnprjcevwyht";
+                    // var pgPass = "cc5441e7c5bc66972fe1bd6291f2d693ef3dc453e578c85ad4597ea3186f0762";
+                    // var pgHost = "ec2-3-216-92-193.compute-1.amazonaws.com";
+                    // var pgPort = "5432";
 
                     connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
                 }
